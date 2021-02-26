@@ -1,9 +1,17 @@
-import '../styles/global.css'
+import "../styles/global.css";
+
+import { ChallengesProvider } from "../contexts/ChallengesContext";
+import React, { useState } from "react";
+
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <ChallengesProvider>
+        <Component {...pageProps} />
+    </ChallengesProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
 
 // equivale ao arquivo App.tsx que é disponibilizado no projeto react normal
