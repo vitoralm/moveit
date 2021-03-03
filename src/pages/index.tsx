@@ -11,6 +11,7 @@ import { ChallengeBox } from "../components/ChallengeBox";
 import styles from "../styles/pages/Home.module.css";
 import { CountdownProvider } from "../contexts/CountdownContext";
 import { ChallengesProvider } from "../contexts/ChallengesContext";
+import MainContent from "../components/MainContent";
 
 interface HomeProps {
   level: number;
@@ -29,21 +30,7 @@ export default function Home(props: HomeProps) {
         <Head>
           <title>Home | move.it</title>
         </Head>
-
-        <ExperienceBar />
-
-        <CountdownProvider>
-          <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountdownProvider>
+        <MainContent />
       </div>
     </ChallengesProvider>
   );
