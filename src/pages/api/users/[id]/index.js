@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 
 async function handler (req, res) {
 
+  // transtormar no middleware
   const token = req.headers['x-acess-token'];
   if (!token) return res.status(401).json({auth: false, message: 'No token provided.'})
 
@@ -12,7 +13,8 @@ async function handler (req, res) {
     if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.', err: err });
     
   })
-
+  // transtormar no middleware
+  
   const {
     query: { id },
   } = req;

@@ -4,7 +4,6 @@ import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/components/Profile.module.css";
 
 export function Profile() {
-  const { level } = useContext(ChallengesContext)
   const { currentUser } = useContext(UserContext)
   return (
     <div className={styles.profileContainer}>
