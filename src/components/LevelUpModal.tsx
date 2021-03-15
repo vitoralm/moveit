@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { ChallengesContext } from "../contexts/ChallengesContext";
 import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/components/LevelUpModal.module.css";
 
@@ -8,7 +7,7 @@ export function LevelUpModal() {
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-        <header>{currentUser.level.}</header>
+        <header>{currentUser.level}</header>
 
         <strong>Parabéns</strong>
         <p>Você alcançou um novo level.</p>
