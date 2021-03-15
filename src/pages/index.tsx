@@ -3,7 +3,6 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import { CookiesProvider } from "react-cookie"
 import styles from "../styles/pages/Home.module.css"
-import { ChallengesProvider } from "../contexts/ChallengesContext"
 import MainContent from "../components/MainContent"
 import { UserProvider } from "../contexts/UserContext"
 import User from "../types/models/User"
@@ -22,31 +21,30 @@ export default function Home(props: HomeProps) {
         userToken={props.userToken}
         currentUser={props.currentUser}
       >
-        <ChallengesProvider>
-          <div className={styles.container}>
-            <Head>
-              <title>Home | move.it</title>
-            </Head>
-            <MainContent />
-          </div>
-        </ChallengesProvider>
+        <div className={styles.container}>
+          <Head>
+            <title>Home | move.it</title>
+          </Head>
+          <MainContent />
+        </div>
       </UserProvider>
     </CookiesProvider>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const {
-    isUserLoggedIn,
-    userToken,
-    currentUser,
-  } = ctx.req.cookies
-  let _currentUser; try { _currentUser  = JSON.parse(currentUser)} catch(err) { _currentUser = null }
+  const { isUserLoggedIn, userToken, currentUser } = ctx.req.cookies
+  let _currentUser
+  try {
+    _currentUser = JSON.parse(currentUser)
+  } catch (err) {
+    _currentUser = null
+  }
   return {
     props: {
       isUserLoggedIn: Boolean(isUserLoggedIn === "true"),
       userToken: userToken ? String(userToken) : null,
-      currentUser: _currentUser
+      currentUser: _currentUser,
     },
   }
 }
