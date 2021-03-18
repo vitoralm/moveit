@@ -35,11 +35,13 @@ export default function Home(props: HomeProps) {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { isUserLoggedIn, userToken, currentUser } = ctx.req.cookies
   let _currentUser
+
   try {
     _currentUser = JSON.parse(currentUser)
   } catch (err) {
     _currentUser = null
   }
+  
   return {
     props: {
       isUserLoggedIn: Boolean(isUserLoggedIn === "true"),

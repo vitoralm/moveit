@@ -9,8 +9,9 @@
   border-radius: 50%;
 }
 
-.profileContainer div {
+.profileContainer > div {
   margin-left: 1.5rem;
+  width: 100%;
 }
 
 .profileContainer div strong {
@@ -26,4 +27,29 @@
 
 .profileContainer div p img {
   margin-right: 0.5rem;
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.profileHeader button {
+  display : flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background-color: var(--blue);
+  color: var(--white);
+  width: 20%;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: background-color 0.2s;
+  outline: 0;
+}
+
+.profileHeader button:hover{
+  background: var(--blue-dark)
 }

@@ -26,7 +26,7 @@ function Login() {
       const userToken = result.token
       const user = result.user.data
       logIn(userToken, user)
-    } else if (res.status === 401) {
+    } else {
       setLoginAttemptFailed(true)
     }
   }

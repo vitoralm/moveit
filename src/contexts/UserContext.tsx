@@ -40,9 +40,7 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
     props.isUserLoggedIn || false
   )
   const [userToken, setUserToken] = useState(props.userToken || "")
-  const [currentUser, setCurrentUser] = useState(
-    props.currentUser || ({} as User)
-  )
+  const [currentUser, setCurrentUser] = useState(  props.currentUser || {} as User )
 
   const [level, setLevel] = useState(currentUser.level ? currentUser.level : 1)
   const [currentExperience, setCurrentExperience] = useState(
@@ -54,7 +52,7 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
   const [activeChallenge, setActiveChallenge] = useState(null)
   const [isLevelUpModalOpen, setIsLevelModalOpen] = useState(false)
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
-  const [cookies, setCookie] = useCookies([
+  const [cookies, setCookie, removeCookie] = useCookies([
     "userToken",
     "currentUser",
     "isUserLoggedIn",
@@ -73,7 +71,12 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
   }
 
   function logOut() {
+    removeCookie("userToken", { path: "/" })
+    removeCookie("currentUser", { path: "/" })
+    removeCookie("isUserLoggedIn", { path: "/" })
     setIsUserLoggedIn(false)
+    setCurrentUser({} as User)
+    setUserToken(null)
   }
 
   useEffect(() => {
