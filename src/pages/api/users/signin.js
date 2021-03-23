@@ -1,10 +1,11 @@
 import { query as q } from "faunadb"
 import { serverClient } from "../../../../utils/fauna-auth"
+import nextConnect from 'next-connect'
 require("dotenv-safe").config()
 const jwt = require("jsonwebtoken")
+const handler = nextConnect();
 
-export default async (req, res) => {
-  if (req.method === "POST") {
+handler.post(async function (req, res) {
     const {
       body: { username, password },
     } = req
@@ -25,7 +26,7 @@ export default async (req, res) => {
     } catch (e) {
       res.status(500).json({ error: e.message })
     }
-  } else {
-    res.status(400).json({message:"erro"})
-  }
-}
+})
+
+
+export default handler

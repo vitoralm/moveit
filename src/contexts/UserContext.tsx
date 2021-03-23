@@ -41,17 +41,9 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
   )
   const [userToken, setUserToken] = useState(props.userToken || "")
   const [currentUser, setCurrentUser] = useState(  props.currentUser || {} as User )
-
-  const [level, setLevel] = useState(currentUser.level ? currentUser.level : 1)
-  const [currentExperience, setCurrentExperience] = useState(
-    currentUser.currentExperience ? currentUser.currentExperience : 0
-  )
-  const [challengesCompleted, setChallengesCompleted] = useState(
-    currentUser.challengesCompleted ? currentUser.challengesCompleted : 0
-  )
   const [activeChallenge, setActiveChallenge] = useState(null)
   const [isLevelUpModalOpen, setIsLevelModalOpen] = useState(false)
-  const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
+  const experienceToNextLevel = Math.pow((currentUser.level + 1) * 4, 2)
   const [cookies, setCookie, removeCookie] = useCookies([
     "userToken",
     "currentUser",
@@ -84,7 +76,7 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
   }, [])
 
   function levelUp() {
-    setLevel(level + 1)
+    currentUser.level++
     setIsLevelModalOpen(true)
   }
 
@@ -110,23 +102,43 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
     setActiveChallenge(null)
   }
 
+  async function syncRemoteUser(user : User) {
+    console.log("currentUser", user)
+    const userBody = JSON.stringify({
+      currentExperience: user.currentExperience,
+      challengesCompleted: user.challengesCompleted,
+      level: user.level
+    })
+    const reqHeaders= {
+      "Content-Type": "application/json",
+      "x-acess-token": userToken
+    }
+    const url =  "/api/users/" + user.id
+    const res = await fetch(url, {
+      body: userBody,
+      headers: reqHeaders,
+      method: "POST"
+    })
+    const updatedUser = await res.json()
+    console.log("updatedUser", updatedUser)
+  }
+
   function completeChallenge() {
     if (!activeChallenge) {
       return
     }
 
     const { amount } = activeChallenge
-
-    let finalExperience = currentExperience + amount
-
+    let finalExperience = currentUser.currentExperience + amount
     if (finalExperience >= experienceToNextLevel) {
       finalExperience = finalExperience - experienceToNextLevel
       levelUp()
     }
 
-    setCurrentExperience(finalExperience)
+    currentUser.currentExperience = finalExperience
     setActiveChallenge(null)
-    setChallengesCompleted(challengesCompleted + 1)
+    currentUser.challengesCompleted++
+    syncRemoteUser(currentUser)
   }
 
   return (
