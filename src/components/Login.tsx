@@ -18,7 +18,7 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "POST",
+      method: "POST"
     })
 
     const result = await res.json()

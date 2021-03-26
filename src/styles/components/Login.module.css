@@ -122,6 +122,7 @@
     background: var(--green);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    cursor: pointer;
 }
 
 .invalidUserData {

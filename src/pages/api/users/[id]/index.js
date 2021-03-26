@@ -38,7 +38,6 @@ handler.post(async function (req, res) {
       })
     )
     updatedUser.data.id = String(id)
-    console.log(updatedUser.data)
     return res.status(200).json(updatedUser.data)
   } catch (err) {
     return res.status(500).json({ error: err.message })

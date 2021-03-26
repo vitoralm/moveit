@@ -103,7 +103,6 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
   }
 
   async function syncRemoteUser(user : User) {
-    console.log("currentUser", user)
     const userBody = JSON.stringify({
       currentExperience: user.currentExperience,
       challengesCompleted: user.challengesCompleted,

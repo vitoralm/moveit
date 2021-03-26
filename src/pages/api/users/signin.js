@@ -1,7 +1,7 @@
 import { query as q } from "faunadb"
 import { serverClient } from "../../../../utils/fauna-auth"
 import nextConnect from 'next-connect'
-require("dotenv-safe").config()
+//require("dotenv-safe").config()
 const jwt = require("jsonwebtoken")
 const handler = nextConnect();
 
